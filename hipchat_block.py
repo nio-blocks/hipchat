@@ -28,6 +28,18 @@ class Color(Enum):
 @Discoverable(DiscoverableType.block)
 class HipChat(Block):
 
+    """ A block for sending messages to a HipChat room.
+
+    Properties:
+        token (str): Auth token (distributed by account admin)
+        message (expr): Message contents.
+        room_name (str): The plaintext name of the target HipChat room.
+        from_name (expr): Sender name to attach to the message.
+        message_color (enum): The color of the message.
+        notify (bool): Whether or not to send a notification to the members
+            of the room when the message arrives.
+
+    """
     token = StringProperty(title="Api Token", default="[HIPCHAT_TOKEN]")
     message = ExpressionProperty(title="Message contents", default='')
     room_name = StringProperty(title="Room Name", default='')
@@ -54,6 +66,9 @@ class HipChat(Block):
                 self.room_id = room.get('room_id')
 
         self.persistence.store(self.room_name, self.room_id)
+
+    def start(self):
+        super().start()
         self.persistence.save()
 
     def process_signals(self, signals):
