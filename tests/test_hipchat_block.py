@@ -36,7 +36,7 @@ class TestHipChatBlock(NIOBlockTestCase):
             "token": "somebogustoken",
             "message": "The value: {{$val}}",
             "room_name": "TheRoom",
-            "from_name": "Joe",
+            "sender": "Joe",
         })
 
         # confirm that the room id was recorded

@@ -34,7 +34,7 @@ class HipChat(Block):
         token (str): Auth token (distributed by account admin)
         message (expr): Message contents.
         room_name (str): The plaintext name of the target HipChat room.
-        from_name (expr): Sender name to attach to the message.
+        sender (expr): Sender name to attach to the message.
         message_color (enum): The color of the message.
         notify (bool): Whether or not to send a notification to the members
             of the room when the message arrives.
@@ -43,7 +43,7 @@ class HipChat(Block):
     token = StringProperty(title="Api Token", default="[HIPCHAT_TOKEN]")
     message = ExpressionProperty(title="Message contents", default='')
     room_name = StringProperty(title="Room Name", default='')
-    from_name = ExpressionProperty(title="Sender Name", default='')
+    sender = ExpressionProperty(title="Sender Name", default='')
     message_color = SelectProperty(Color, title="Message Color", default=Color.NONE)
     notify = BoolProperty(title="Notify Users in Room", default=False)
 
@@ -74,7 +74,7 @@ class HipChat(Block):
     def process_signals(self, signals):
         for signal in signals:
             msg = self.message(signal)
-            sender = self.from_name(signal)
+            sender = self.sender(signal)
             try:
                 self.hipster.message_room(self.room_id, sender, msg,
                                           color=self.message_color.value,
