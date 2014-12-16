@@ -1,17 +1,12 @@
 from nio.common.block.base import Block
 from nio.common.discovery import Discoverable, DiscoverableType
 from nio.common.command import command
-from nio.metadata.properties.holder import PropertyHolder
-from nio.metadata.properties.list import ListProperty
-from nio.metadata.properties.bool import BoolProperty
-from nio.metadata.properties.int import IntProperty
-from nio.metadata.properties.object import ObjectProperty
-from nio.metadata.properties.select import SelectProperty
-from nio.metadata.properties.string import StringProperty
-from nio.metadata.properties.expression import ExpressionProperty
+from nio.metadata.properties import BoolProperty, SelectProperty, \
+    StringProperty, ExpressionProperty
 
 from hipchat import HipChat as HC
 from enum import Enum
+
 
 class Color(Enum):
     NONE = ''
@@ -44,7 +39,8 @@ class HipChat(Block):
     message = ExpressionProperty(title="Message contents", default='')
     room_name = StringProperty(title="Room Name", default='')
     sender = ExpressionProperty(title="Sender Name", default='')
-    message_color = SelectProperty(Color, title="Message Color", default=Color.NONE)
+    message_color = SelectProperty(
+        Color, title="Message Color", default=Color.NONE)
     notify = BoolProperty(title="Notify Users in Room", default=False)
 
     def __init__(self):
