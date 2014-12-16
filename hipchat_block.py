@@ -40,7 +40,7 @@ class HipChat(Block):
             of the room when the message arrives.
 
     """
-    token = StringProperty(title="Api Token", default="[HIPCHAT_TOKEN]")
+    token = StringProperty(title="API Token", default="[[HIPCHAT_TOKEN]]")
     message = ExpressionProperty(title="Message contents", default='')
     room_name = StringProperty(title="Room Name", default='')
     sender = ExpressionProperty(title="Sender Name", default='')
