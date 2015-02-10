@@ -1,37 +1,23 @@
 from unittest.mock import patch, MagicMock
 from ..hipchat_block import HipChat
-from nio.util.support.block_test_case import NIOBlockTestCase
+from nioext.util.support.block_test_case import NIOExtBlockTestCase
 from nio.common.signal.base import Signal
-from nio.modules.threading import Event
 
 
-class HipChatTest(HipChat):
+class TestHipChatBlock(NIOExtBlockTestCase):
 
-    def __init__(self, event):
-        super().__init__()
-        self._event = event
-
-    def configure(self, context):
-        super().configure(context)
-        self._event.set()
-
-
-class TestHipChatBlock(NIOBlockTestCase):
     def get_test_modules(self):
-        return self.ServiceDefaultModules + ['persistence']
-    
-    def setUp(self):
-        super().setUp()
-        self.signals = [
-            Signal({'val': 1})
-        ]
+        return super().get_test_modules() + ['persistence']
+
+    def get_module_config_persistence(self):
+        """ Make sure we use file persistence """
+        return {'persistence': 'file'}
 
     @patch('hipchat.HipChat.__init__', return_value=None)
     @patch('hipchat.HipChat.message_room')
-    @patch('hipchat.HipChat.find_room', return_value = {'room_id': 23})
+    @patch('hipchat.HipChat.find_room', return_value={'room_id': 23})
     def test_deliver_messages(self, mock_find, mock_msg, mock_constr):
-        e = Event()
-        blk = HipChatTest(e)
+        blk = HipChat()
         self.configure_block(blk, {
             "token": "somebogustoken",
             "message": "The value: {{$val}}",
@@ -39,14 +25,14 @@ class TestHipChatBlock(NIOBlockTestCase):
             "sender": "Joe",
         })
 
+        # avoid saving to disk
+        blk.persistence.save = MagicMock()
+
         # confirm that the room id was recorded
         self.assertEqual(blk.persistence.load("TheRoom"), 23)
 
-        # avoid saving to disk
-        blk.persistence.save = MagicMock()
-        
         blk.start()
-        blk.process_signals(self.signals)
+        blk.process_signals([Signal({'val': 1})])
         mock_msg.assert_called_with(23, 'Joe', 'The value: 1',
                                     color='', notify=False)
         blk.stop()
