@@ -1,8 +1,9 @@
-from nio.common.block.base import Block
-from nio.common.discovery import Discoverable, DiscoverableType
-from nio.common.command import command
-from nio.metadata.properties import BoolProperty, SelectProperty, \
-    StringProperty, ExpressionProperty
+from nio.block.base import Block
+from nio.util.discovery import discoverable
+from nio.command import command
+from nio.properties import BoolProperty, SelectProperty, \
+    StringProperty, Property
+from nio.block.mixins.persistence.persistence import Persistence
 
 from hipchat import HipChat as HC
 from enum import Enum
@@ -20,8 +21,8 @@ class Color(Enum):
 
 @command('list_rooms')
 @command('list_users')
-@Discoverable(DiscoverableType.block)
-class HipChat(Block):
+@discoverable
+class HipChat(Persistence, Block):
 
     """ A block for sending messages to a HipChat room.
 
@@ -36,9 +37,9 @@ class HipChat(Block):
 
     """
     token = StringProperty(title="API Token", default="[[HIPCHAT_TOKEN]]")
-    message = ExpressionProperty(title="Message contents", default='')
+    message = Property(title="Message contents", default='')
     room_name = StringProperty(title="Room Name", default='')
-    sender = ExpressionProperty(title="Sender Name", default='')
+    sender = Property(title="Sender Name", default='')
     message_color = SelectProperty(
         Color, title="Message Color", default=Color.NONE)
     notify = BoolProperty(title="Notify Users in Room", default=False)
@@ -50,22 +51,18 @@ class HipChat(Block):
 
     def configure(self, context):
         super().configure(context)
-        self.hipster = HC(token=self.token)
-        self.room_id = self.persistence.load(self.room_name)
+        self.hipster = HC(token=self.token())
         if self.room_id is None:
-            room = self.hipster.find_room(self.room_name)
+            room = self.hipster.find_room(self.room_name())
             if room is None:
-                self._logger.error(
-                    "Hipchat room '{}' does not exist".format(self.room_name)
+                self.logger.error(
+                    "Hipchat room '{}' does not exist".format(self.room_name())
                 )
             else:
                 self.room_id = room.get('room_id')
 
-        self.persistence.store(self.room_name, self.room_id)
-
     def start(self):
         super().start()
-        self.persistence.save()
 
     def process_signals(self, signals):
         for signal in signals:
@@ -73,13 +70,17 @@ class HipChat(Block):
             sender = self.sender(signal)
             try:
                 self.hipster.message_room(self.room_id, sender, msg,
-                                          color=self.message_color.value,
-                                          notify=self.notify)
+                                          color=self.message_color().value,
+                                          notify=self.notify())
             except Exception as e:
-                self._logger.error(
+                self.logger.error(
                     "Failed to message HipChat room {}: {}".format(
-                        self.room_name, str(e))
+                        self.room_name(), str(e))
                 )
+
+    def persisted_values(self):
+        """Persist room_name using block mixin."""
+        return ["room_id"]
 
     def list_rooms(self):
         return self.hipster.list_rooms()
