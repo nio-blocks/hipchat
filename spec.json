@@ -1,0 +1,46 @@
+{
+  "nio/HipChat": {
+    "Output": "None",
+    "Input": "Any list of signals. Messages are constructed by evaluating the *HipChat.message* against each signal.",
+    "Category": "WebService",
+    "Properties": {
+      "token": {
+        "description": "Authentication token for HipChat account.",
+        "type": "string"
+      },
+      "notify": {
+        "description": "Whether or not to notify the occupants of the room when the message arrives.",
+        "type": "bool"
+      },
+      "room_name": {
+        "description": "The plaintext name of the target HipChat room.",
+        "type": "string"
+      },
+      "message": {
+        "description": "Expression property for the message.",
+        "type": "expression"
+      },
+      "message_color": {
+        "description": "The message will appear with this color.",
+        "type": "enum"
+      },
+      "sender": {
+        "description": "The sender name to associate with the message.",
+        "type": "expression"
+      }
+    },
+    "Description": "Block for sending messages to a HipChat room",
+    "Dependencies": [
+      "-   [python-simple-hipchat](https://pypi.python.org/pypi/python-simple-hipchat/0.3.2)"
+    ],
+    "Version": "1.0.0",
+    "Commands": {
+      "list_rooms": {
+        "description": "Return a list of the rooms associated with the Auth token provided."
+      },
+      "list_users": {
+        "description": "Return a list of the users associated with the Auth token provided."
+      }
+    }
+  }
+}

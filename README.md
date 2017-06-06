@@ -6,12 +6,12 @@ Block for sending messages to a HipChat room
 Properties
 ----------
 
--   **token** (str): Authentication token for HipChat account.
--   **message** (expr): Expression property for the message.
--   **room_name** (str): The plaintext name of the target HipChat room.
--   **sender** (expr): The sender name to associate with the message.
--   **message_color** (enum): The message will appear with this color.
--   **notify** (bool): Whether or not to notify the occupants of the room when the message arrives.
+-   **token** (type:string): Authentication token for HipChat account.
+-   **message** (type:expression): Expression property for the message.
+-   **room_name** (type:string): The plaintext name of the target HipChat room.
+-   **sender** (type:expression): The sender name to associate with the message.
+-   **message_color** (type:enum): The message will appear with this color.
+-   **notify** (type:bool): Whether or not to notify the occupants of the room when the message arrives.
 
 Dependencies
 ------------
