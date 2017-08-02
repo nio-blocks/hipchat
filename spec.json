@@ -1,47 +1,10 @@
 {
-    "nio/HipChat": {
-        "Commands": {
-            "list_rooms": {
-                "description": "Return a list of the rooms associated with the Auth token provided."
-            },
-            "list_users": {
-                "description": "Return a list of the users associated with the Auth token provided."
-            }
-        },
-        "Description": "Block for sending messages to a HipChat room",
-        "Input": {
-            "Description": "Any list of signals. Messages are constructed by evaluating the *HipChat.message* against each signal."
-        },
-        "Properties": {
-            "room_name": {
-                "description": "The plaintext name of the target HipChat room.",
-                "type": "string"
-            },
-            "message_color": {
-                "description": "The message will appear with this color.",
-                "type": "enum"
-            },
-            "token": {
-                "description": "Authentication token for HipChat account.",
-                "type": "string"
-            },
-            "notify": {
-                "description": "Whether or not to notify the occupants of the room when the message arrives.",
-                "type": "bool"
-            },
-            "sender": {
-                "description": "The sender name to associate with the message.",
-                "type": "expression"
-            },
-            "message": {
-                "description": "Expression property for the message.",
-                "type": "expression"
-            }
-        },
-        "Version": "1.0.0",
-        "Category": "WebService",
-        "Output": {
-            "Description": "None"
-        }
-    }
+  "nio/HipChat": {
+    "version": "0.0.1",
+    "description": "",
+    "inputs": {},
+    "outputs": {},
+    "properties": {},
+    "commands": {}
+  }
 }
