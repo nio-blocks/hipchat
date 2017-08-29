@@ -1,8 +1,7 @@
-from nio.block.base import Block
-from nio.util.discovery import discoverable
+from nio import TerminatorBlock
 from nio.command import command
 from nio.properties import BoolProperty, SelectProperty, \
-    StringProperty, Property
+    StringProperty, Property, VersionProperty
 from nio.block.mixins.persistence.persistence import Persistence
 
 from hipchat import HipChat as HC
@@ -21,8 +20,7 @@ class Color(Enum):
 
 @command('list_rooms')
 @command('list_users')
-@discoverable
-class HipChat(Persistence, Block):
+class HipChat(Persistence, TerminatorBlock):
 
     """ A block for sending messages to a HipChat room.
 
@@ -36,6 +34,7 @@ class HipChat(Persistence, Block):
             of the room when the message arrives.
 
     """
+    version = VersionProperty("1.0.0")
     token = StringProperty(title="API Token", default="[[HIPCHAT_TOKEN]]")
     message = Property(title="Message contents", default='')
     room_name = StringProperty(title="Room Name", default='')
