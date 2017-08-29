@@ -1,34 +1,31 @@
 HipChat
 =======
-
-Block for sending messages to a HipChat room
+Send messages to a HipChat room.
 
 Properties
 ----------
+- **backup_interval**: How often to save persisted data.
+- **load_from_persistence**: If true, the block’s state will be saved at a block stoppage and reloaded upon restart.
+- **message**: Message to post to HipChati.
+- **message_color**: The message will appear with this color.
+- **notify**: Whether or not to notify the occupants of the room when the message arrives.
+- **room_name**: The plaintext name of the target HipChat room.
+- **sender**: The sender name to associate with the message.
+- **token**: Authentication token for HipChat account.
 
--   **token** (type:string): Authentication token for HipChat account.
--   **message** (type:expression): Expression property for the message.
--   **room_name** (type:string): The plaintext name of the target HipChat room.
--   **sender** (type:expression): The sender name to associate with the message.
--   **message_color** (type:enum): The message will appear with this color.
--   **notify** (type:bool): Whether or not to notify the occupants of the room when the message arrives.
+Inputs
+------
+- **default**: Any list of signals.
 
-Dependencies
-------------
-
--   [python-simple-hipchat](https://pypi.python.org/pypi/python-simple-hipchat/0.3.2)
-
+Outputs
+-------
+None
 
 Commands
 --------
+- **list_rooms**: Get rooms associated with the HipChat account.
+- **list_users**: Get users associated with the HipChat account.
 
--   **list_rooms**: Return a list of the rooms associated with the Auth token provided.
--   **list_users**: Return a list of the users associated with the Auth token provided.
-
-Input
------
-Any list of signals. Messages are constructed by evaluating the *HipChat.message* against each signal.
-
-Output
-------
-None
+Dependencies
+------------
+- [python-simple-hipchat](https://pypi.python.org/pypi/python-simple-hipchat)

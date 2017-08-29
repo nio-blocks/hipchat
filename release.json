@@ -1,7 +1,7 @@
 {
   "nio/HipChat": {
     "language": "Python",
-    "version": "0.0.1",
-    "url": "git://github.com/nio-blocks/hipchat.git"
+    "url": "git://github.com/nio-blocks/hipchat.git",
+    "version": "0.0.0"
   }
 }

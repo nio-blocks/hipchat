@@ -1,10 +1,74 @@
 {
   "nio/HipChat": {
-    "version": "0.0.1",
-    "description": "",
-    "inputs": {},
+    "version": "1.0.0",
+    "description": "Send messages to a HipChat room.",
+    "properties": {
+      "backup_interval": {
+        "title": "Backup Interval",
+        "type": "TimeDeltaType",
+        "description": "How often to save persisted data.",
+        "default": {
+          "seconds": 3600
+        }
+      },
+      "load_from_persistence": {
+        "title": "Load from Persistence?",
+        "type": "BoolType",
+        "description": "If true, the block’s state will be saved at a block stoppage and reloaded upon restart.",
+        "default": true
+      },
+      "message": {
+        "title": "Message contents",
+        "type": "Type",
+        "description": "Message to post to HipChati.",
+        "default": ""
+      },
+      "message_color": {
+        "title": "Message Color",
+        "type": "SelectType",
+        "description": "The message will appear with this color.",
+        "default": ""
+      },
+      "notify": {
+        "title": "Notify Users in Room",
+        "type": "BoolType",
+        "description": "Whether or not to notify the occupants of the room when the message arrives.",
+        "default": false
+      },
+      "room_name": {
+        "title": "Room Name",
+        "type": "StringType",
+        "description": "The plaintext name of the target HipChat room.",
+        "default": ""
+      },
+      "sender": {
+        "title": "Sender Name",
+        "type": "Type",
+        "description": "The sender name to associate with the message.",
+        "default": ""
+      },
+      "token": {
+        "title": "API Token",
+        "type": "StringType",
+        "description": "Authentication token for HipChat account.",
+        "default": "[[HIPCHAT_TOKEN]]"
+      }
+    },
+    "inputs": {
+      "default": {
+        "description": "Any list of signals."
+      }
+    },
     "outputs": {},
-    "properties": {},
-    "commands": {}
+    "commands": {
+      "list_rooms": {
+        "description": "Get rooms associated with the HipChat account.",
+        "params": {}
+      },
+      "list_users": {
+        "description": "Get users associated with the HipChat account.",
+        "params": {}
+      }
+    }
   }
 }
