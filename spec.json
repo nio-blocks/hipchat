@@ -1,6 +1,6 @@
 {
   "nio/HipChat": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Send messages to a HipChat room.",
     "categories": [
       "Communication"
@@ -17,7 +17,7 @@
       "load_from_persistence": {
         "title": "Load from Persistence?",
         "type": "BoolType",
-        "description": "If true, the block\u2019s state will be saved at a block stoppage and reloaded upon restart.",
+        "description": "If true, the block’s state will be saved at a block stoppage and reloaded upon restart.",
         "default": true
       },
       "message": {

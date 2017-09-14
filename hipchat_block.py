@@ -34,7 +34,7 @@ class HipChat(Persistence, TerminatorBlock):
             of the room when the message arrives.
 
     """
-    version = VersionProperty("1.0.0")
+    version = VersionProperty("1.0.1")
     token = StringProperty(title="API Token", default="[[HIPCHAT_TOKEN]]")
     message = Property(title="Message contents", default='')
     room_name = StringProperty(title="Room Name", default='')
