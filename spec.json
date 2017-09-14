@@ -23,7 +23,7 @@
       "message": {
         "title": "Message contents",
         "type": "Type",
-        "description": "Message to post to HipChati.",
+        "description": "Message to post to HipChat.",
         "default": ""
       },
       "message_color": {
