@@ -6,7 +6,7 @@ Properties
 ----------
 - **backup_interval**: How often to save persisted data.
 - **load_from_persistence**: If true, the block’s state will be saved at a block stoppage and reloaded upon restart.
-- **message**: Message to post to HipChati.
+- **message**: Message to post to HipChat.
 - **message_color**: The message will appear with this color.
 - **notify**: Whether or not to notify the occupants of the room when the message arrives.
 - **room_name**: The plaintext name of the target HipChat room.
